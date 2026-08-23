@@ -1,0 +1,94 @@
+generated: '2026-08-23'
+method: probed
+source: >-
+  live probes of https://api.kevala.com/der/ (2026-08-23) + https://www.kevala.com/release-notes +
+  https://www.kevala.com/terms-of-service
+summary: >-
+  Cross-cutting semantics for the Kevala platform API, established by probing the anonymous edge of
+  the authenticated service. Kevala publishes no developer documentation, so only behaviours that
+  can be observed without credentials are recorded here. Nothing about idempotency, pagination,
+  versioning or rate limiting is documented by the provider; the unknowns below are honest unknowns,
+  not inferred defaults.
+stack:
+  server: >-
+    nginx/1.29.3 fronting Django REST Framework, behind a Google Cloud edge (responses carry
+    `via: 1.1 google`).
+  evidence: >-
+    DRF `detail` error envelope, `Allow: GET, HEAD, OPTIONS` on /der/, DRF content negotiation
+    (`?format=`), and an OpenAPI schema view served as application/vnd.oai.openapi at /der/openapi/.
+authentication:
+  styles: [oauth2_bearer]
+  authorization_server: https://kevalaanalytics.auth0.com/
+  see: authentication/kevala-authentication.yml
+url_style:
+  trailing_slash: required
+  evidence: >-
+    https://api.kevala.com/der returns 301 to /der/ (`location: /der/`). Django APPEND_SLASH is on;
+    a client that does not follow redirects on non-GET verbs will break.
+content_negotiation:
+  supported: true
+  mechanism: DRF format suffix/query parameter (`?format=`) and Accept header
+  observed:
+  - request: 'Accept: application/json on /der/openapi/'
+    response: application/json
+  - request: 'default on /der/openapi/'
+    response: application/vnd.oai.openapi (YAML rendering)
+methods:
+  observed_allow_header: 'GET, HEAD, OPTIONS'
+  scope_note: >-
+    Observed on the anonymous /der/ root only. It does not establish that the authenticated service
+    is read-only — collection sub-resources may allow writes.
+error_envelope:
+  shape: '{"detail": "..."}'
+  rfc9457: false
+  see: errors/kevala-problem-types.yml
+request_id_tracing:
+  supported: unknown
+  note: No request-id / correlation header observed on anonymous responses.
+pagination:
+  style: unknown
+  note: >-
+    Not documented and not observable anonymously. DRF defaults (limit/offset, page, or cursor) are
+    a guess and are deliberately NOT recorded as fact.
+versioning:
+  scheme: unversioned-path
+  note: >-
+    The service is mounted at /der/ with no version segment. No version header, no /v1/ path
+    (probed: https://api.kevala.com/v1/ -> 404, https://api.kevala.com/der/v1/ -> 404).
+  see: lifecycle/kevala-lifecycle.yml
+idempotency:
+  documented: false
+  header: null
+  notes: >-
+    No idempotency mechanism is documented anywhere on Kevala's public surface, and no docs exist in
+    which to document one. NO `Idempotency` pointer is emitted — the agent-readiness idempotency
+    dimension is a genuine zero for this provider, not a missing pointer.
+rate_limit_signal:
+  documented: false
+  headers_observed: []
+  see: rate-limits/kevala-rate-limits.yml
+security_headers_observed:
+  strict_transport_security: 'max-age=31536000; includeSubDomains; preload'
+  x_frame_options: DENY
+  x_content_type_options: nosniff
+  referrer_policy: same-origin
+  cross_origin_opener_policy: same-origin
+reversibility:
+  state: unknown
+  grade: null
+  write_surface_known: false
+  reversal_operations: []
+  window: null
+  notes: >-
+    Undeterminable from the public surface. The only anonymously reachable endpoint advertises
+    `Allow: GET, HEAD, OPTIONS`, which hints at a read surface, but the platform's write operations
+    (network editor, scenario models, forecast edits described in the release notes) live behind
+    authentication and are undocumented publicly. No reversal operation and no reversal window is
+    stated anywhere by the provider, so none is asserted here. This is NOT `na`: Kevala's platform
+    demonstrably has write features, we simply cannot see their contract.
+  agent_risk: >-
+    An agent given Kevala platform credentials has no published way to know whether a scenario or
+    network edit can be undone, or within what window.
+dry_run_mode:
+  documented: false
+  note: No sandbox, test mode or dry-run parameter is published.

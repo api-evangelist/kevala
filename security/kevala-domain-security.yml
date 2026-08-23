@@ -1,0 +1,27 @@
+generated: '2026-08-23'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.kevala.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 30 21:28:17 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: api.kevala.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Nov  8 04:19:24 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  hsts_note: >-
+    Corrected by hand 2026-08-23. The automated probe recorded null because the API host answers
+    404 (nginx) at "/" with no body to score; a direct HEAD on https://api.kevala.com/ returns
+    `strict-transport-security: max-age=31536000; includeSubDomains; preload`.
+domains:
+- domain: kevala.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none

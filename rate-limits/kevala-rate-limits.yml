@@ -1,0 +1,26 @@
+generated: '2026-08-23'
+method: searched
+source: >-
+  https://www.kevala.com (all 92 sitemap URLs), https://www.kevala.com/terms-of-service, and
+  anonymous response headers from https://api.kevala.com/der/ (2026-08-23)
+provider: Kevala
+providerId: kevala
+limit_count: 0
+limits: []
+headers: {}
+headers_observed: []
+responseCodes: {}
+description: >-
+  No rate limits are published. Kevala has no developer documentation, so there is no limits table,
+  no quota statement and no throttling policy anywhere on its public surface. The Terms of Service
+  restrict use volume only qualitatively (no reselling, no bulk copying of platform data).
+observed:
+- url: https://api.kevala.com/der/
+  status: 403
+  rate_limit_headers: none
+  note: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After header is returned on anonymous responses. Whether
+    the authenticated service emits them is unknown — the gated OpenAPI would say, and it is 403.
+agent_note: >-
+  An agent integrating Kevala has no published runtime signal for backoff: no limit, no window, no
+  headers, and no documented 429 behaviour. limit_count 0 here is a real measurement of absence.

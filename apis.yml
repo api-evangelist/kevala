@@ -1,23 +1,135 @@
 aid: kevala
 name: Kevala
-description: 'Kevala is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Kevala Inc. is a San Francisco based grid intelligence company, founded in 2014, that builds a
+  cloud-based electric-grid data and analytics platform for utilities, regulators and government
+  agencies, renewable energy developers, and transportation electrification planners. The platform
+  merges address-specific geospatial data, utility network models and hyper-granular time-series
+  data into map-based analytics for integrated grid planning, distributed energy resource (DER)
+  adoption forecasting, project siting, power flow analysis, locational carbon accounting,
+  production cost modeling, and predictive interconnection siting metrics, with exports compatible
+  with CYME, Synergi, PSS/E and OpenDSS. Kevala licenses its data and analysis by subscription and
+  operates an authenticated platform API at api.kevala.com; the DER metering surface publishes an
+  OpenAPI document and a ReDoc reference, but both require platform credentials and no public
+  developer portal, API reference or machine-readable specification is served anonymously.
 url: https://raw.githubusercontent.com/api-evangelist/kevala/refs/heads/main/apis.yml
+image: https://cdn.prod.website-files.com/62a236e9692c48e1d16898b3/6359863c0193ad9598083d1c_kevala-logo-copy.png
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-23'
 modified: '2026-08-23'
 tags:
 - Company
-apis: []
+- Energy
+- Electricity
+- Electric Grid
+- Grid Analytics
+- Distributed Energy Resources
+- Utilities
+- Geospatial
+- Analytics
+- Carbon Accounting
+- Electric Vehicles
+- Sustainability
+apis:
+- name: Kevala Platform API — DER Metering
+  description: >-
+    Authenticated REST surface of the Kevala platform, mounted at https://api.kevala.com/der/ and
+    implemented with Django REST Framework. Kevala's September 2024 platform release notes describe
+    a "DER Metering — New portal for accessing meter status and PV generation data". The service
+    publishes its own OpenAPI document at /der/openapi/ (Content-Type application/vnd.oai.openapi)
+    and a ReDoc reference at /der/redoc/, but both return HTTP 403
+    {"detail":"Authentication credentials were not provided."} to anonymous callers, so the
+    contract could not be captured. Access tokens are issued by Kevala's Auth0 tenant for the
+    audience https://api.kevala.com.
+  humanURL: https://www.kevala.com/platform
+  baseURL: https://api.kevala.com/der/
+  tags:
+  - Distributed Energy Resources
+  - Metering
+  - Electric Grid
+  properties:
+  - type: Authentication
+    url: authentication/kevala-authentication.yml
+  - type: OAuthScopes
+    url: scopes/kevala-scopes.yml
+  - type: ErrorCatalog
+    url: errors/kevala-problem-types.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/kevala-domain-security.yml
 - type: Website
-  url: https://www.hiive.com/securities/kevala-stock
+  url: https://www.kevala.com
+- type: SignUp
+  url: https://www.kevala.com/sign-up
+- type: Login
+  url: https://app.kevala.com/
+- type: TermsOfService
+  url: https://www.kevala.com/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.kevala.com/privacy-policy
+- type: Blog
+  url: https://www.kevala.com/resources
+- type: GitHubOrganization
+  url: https://github.com/KevalaAnalytics
+- type: ReleaseNotes
+  url: https://www.kevala.com/release-notes
+- type: LinkedIn
+  url: https://www.linkedin.com/company/kevalaanalytics/
+- type: Twitter
+  url: https://twitter.com/kevalaanalytics
+- type: ChangeLog
+  url: changelog/kevala-changelog.yml
+- type: Lifecycle
+  url: lifecycle/kevala-lifecycle.yml
+- type: Authentication
+  url: authentication/kevala-authentication.yml
+- type: OAuthScopes
+  url: scopes/kevala-scopes.yml
+- type: ErrorCatalog
+  url: errors/kevala-problem-types.yml
+- type: Conventions
+  url: conventions/kevala-conventions.yml
+- type: Conformance
+  url: conformance/kevala-conformance.yml
+- type: Compliance
+  url: conformance/kevala-conformance.yml
+- type: Packages
+  url: packages/kevala-packages.yml
+- type: Plans
+  url: plans/kevala-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/kevala-rate-limits.yml
+- type: LLMsTxt
+  url: llms/kevala-llms.txt
+x-enrichment:
+  date: '2026-08-23'
+  status: minimal
+  artifacts_added: 15
+  pass: local-v1
+x-coverage:
+  state: gated
+  reason: customer-only-docs
+  detail: >-
+    Kevala's DER service does publish an OpenAPI document and a ReDoc reference at
+    https://api.kevala.com/der/openapi/ and /der/redoc/, but both return HTTP 403
+    "Authentication credentials were not provided." to anonymous callers, and the platform behind
+    them is reachable only with an Auth0 token issued to an active subscription.
+  evidence:
+  - url: https://api.kevala.com/der/openapi/
+    status: 403
+  - url: https://api.kevala.com/der/redoc/
+    status: 403
+  - url: https://api.kevala.com/der/
+    status: 403
+  - url: https://www.kevala.com/llms.txt
+    status: 404
+  - url: https://app.kevala.com/
+    status: 302
+  checked: '2026-08-23'

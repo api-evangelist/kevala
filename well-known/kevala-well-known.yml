@@ -1,0 +1,82 @@
+generated: '2026-08-23'
+method: probed
+source: live probes of /.well-known/ paths on every Kevala host
+summary: >-
+  No Kevala-controlled host serves a /.well-known/ document. www.kevala.com (Webflow) answers 404
+  with an "Invalid .well-known request" stub for every path; api.kevala.com answers an nginx 404;
+  app.kevala.com 302s every path into the Auth0 login. The one real discovery document found in the
+  Kevala estate is the OpenID Connect configuration of the company's Auth0 tenant
+  (kevalaanalytics.auth0.com) — saved below because it documents how the platform API is
+  authenticated, but it is boilerplate served by Auth0 for every tenant rather than a document
+  Kevala publishes on its own infrastructure.
+pointer_basis: >-
+  NO WellKnown pointer is emitted and NO SecurityTxt pointer is emitted. RFC 9116 is unimplemented
+  and no api-catalog, ai-plugin.json or agent card exists on any Kevala host. The single 200 below
+  is on a vendor-hosted identity tenant, not on kevala.com or api.kevala.com, so treating it as a
+  Kevala-published well-known surface would over-credit the provider.
+hosts:
+- host: https://www.kevala.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    body: 'Invalid .well-known request'
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://api.kevala.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://app.kevala.com
+  note: >-
+    Every path 302s to https://kevalaanalytics.auth0.com/login (the platform is entirely
+    authenticated); no document is served anonymously.
+  documents:
+  - path: /.well-known/security.txt
+    status: 302
+  - path: /.well-known/agent-card.json
+    status: 302
+  - path: /.well-known/agent.json
+    status: 302
+  - path: /.well-known/api-catalog
+    status: 302
+  - path: /.well-known/openid-configuration
+    status: 302
+  - path: /.well-known/ai-plugin.json
+    status: 302
+- host: https://kevalaanalytics.auth0.com
+  note: >-
+    Kevala's Auth0 identity tenant — vendor-hosted, provider-configured. Recorded as evidence for
+    authentication/ and scopes/, NOT as a Kevala-published well-known surface.
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: kevala-auth0-openid-configuration.json
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+  - path: /.well-known/jwks.json
+    status: 200
+checked: '2026-08-23'

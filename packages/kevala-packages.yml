@@ -1,0 +1,32 @@
+generated: '2026-08-23'
+method: searched
+source: >-
+  registry.npmjs.org search, pypi.org, rubygems.org, crates.io, GitHub org
+  https://github.com/KevalaAnalytics, and https://www.kevala.com (all probed 2026-08-23)
+package_count: 0
+packages: []
+official_sdks: 0
+registries_searched:
+- registry: npm
+  query: https://registry.npmjs.org/-/v1/search?text=kevala
+  result: no first-party package
+- registry: pypi
+  queries: [kevala, kevala-api, kevala-client, kevalaanalytics]
+  result: 404 on all
+- registry: rubygems
+  query: kevala
+  result: 404
+- registry: crates.io
+  query: kevala
+  result: 0 crates
+- registry: github
+  query: https://api.github.com/orgs/kevalaanalytics/repos
+  result: >-
+    The org exists (github.com/KevalaAnalytics, created 2016-08-09, San Francisco) but publishes a
+    single public repository — `python-bigquery-sqlalchemy`, a fork of the Google SQLAlchemy dialect
+    for BigQuery, last pushed 2022-12-20. It is infrastructure tooling, not a Kevala API client.
+notes: >-
+  Kevala ships no client library in any public registry and no SDK is referenced anywhere on its
+  public site. Consistent with the API being customer-only: with the contract itself gated behind
+  authentication there is no public surface for a client library to target. NO `SDKs` pointer is
+  emitted — sdk_count is a genuine zero.

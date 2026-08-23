@@ -1,0 +1,56 @@
+generated: '2026-08-23'
+method: searched
+source: >-
+  https://www.kevala.com/release-notes + https://www.kevala.com/terms-of-service +
+  live probes of api.kevala.com and status/trust subdomains (2026-08-23)
+versioning:
+  scheme: unversioned-path
+  notes: >-
+    The DER service is mounted at https://api.kevala.com/der/ with no version segment. Probes for
+    /v1/, /v2/ and /der/v1/ all 404. No version header and no documented version policy.
+changelog:
+  url: https://www.kevala.com/release-notes
+  artifact: changelog/kevala-changelog.yml
+  machine_readable: false
+  notes: >-
+    A real, dated, public release-notes page (HTTP 200) covering Dec 2023 – Sep 2024 by month and
+    module. No feed, no permalinks, and no entry newer than September 2024 as of this probe.
+status_page:
+  published: false
+  probed:
+  - url: https://status.kevala.com
+    status: 000
+    note: DNS does not resolve.
+  - url: https://www.kevala.com/status
+    status: 404
+  notes: >-
+    No status page, uptime history or incident feed is published, and none is linked from the site
+    footer or the platform login. NO StatusPage pointer is emitted.
+deprecation:
+  policy_documented: false
+  sunset_header: false
+  deprecated_operations: []
+  notes: >-
+    No deprecation or sunset policy (RFC 8594) is published; there is no developer documentation in
+    which to publish one. The Terms of Service reserve the right to change the platform with 30
+    days' notice of updated terms by email or in-product notice, which is a contract-change
+    provision, not an API deprecation policy. NO Deprecation pointer is emitted.
+sla:
+  published: false
+  notes: >-
+    No public SLA, uptime commitment or support-response target. The Terms of Service (Section 4,
+    Payment) put fees and access terms on a per-customer Order Form, so any availability commitment
+    is negotiated privately.
+support:
+  public_channel: false
+  notes: >-
+    The site's "Support" nav item is an inert placeholder (`href="#"` with class `hide`). The only
+    public contact routes are https://www.kevala.com/contact-us, https://www.kevala.com/demo and
+    privacy@kevala.com. NO Support pointer is emitted.
+observed_activity:
+  last_public_release_note: '2024-09'
+  site_copyright: '2025'
+  note: >-
+    Kevala's public marketing site still carries unreplaced "Lorem ipsum dolor sit amet" placeholder
+    copy in its primary navigation for six of its own customer and solution entries, which is a
+    maintenance signal on the public surface independent of platform activity.

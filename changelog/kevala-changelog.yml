@@ -1,0 +1,82 @@
+generated: '2026-08-23'
+method: searched
+source: https://www.kevala.com/release-notes
+docs: https://www.kevala.com/release-notes
+title: Kevala Platform Release Notes
+scheme: dated-monthly
+scheme_note: >-
+  Entries are grouped by month and by platform module (Integrated Grid Planning, DER Metering,
+  Production Cost Modeling, Platform). No semantic version numbers, no API version identifiers, and
+  no per-entry permalinks or feed. The page is a single Webflow page with no RSS/Atom.
+current_version: null
+current_version_note: The platform is unversioned publicly; releases are identified by month only.
+latest_entry: '2024-09'
+staleness_note: >-
+  Probed 2026-08-23 (HTTP 200): the most recent entry on the page is September 2024, i.e. the
+  published release notes have not been updated in roughly 23 months. Either the platform changelog
+  moved inside the authenticated application or it stopped being maintained; nothing on the public
+  site says which.
+api_relevant_note: >-
+  Two entries reference the API surface directly — July 2024 "Patch API improvements" and September
+  2024 "DER Metering — New portal for accessing meter status and PV generation data" — which is the
+  only public, dated evidence that Kevala ships an API product. Neither entry links to a reference.
+entries:
+- date: '2024-09'
+  module: Integrated Grid Planning (IGP)
+  type: additions
+  breaking: false
+  highlights:
+  - Added subtransmission forecasting, including subtransmission-connected customers and service transformer loads
+  - Load forecasts can be exported to PSS/E
+- date: '2024-09'
+  module: DER Metering
+  type: additions
+  breaking: false
+  highlights:
+  - New portal for accessing meter status and PV generation data
+- date: '2024-08'
+  module: Platform
+  type: maintenance
+  breaking: false
+  highlights:
+  - Security updates
+- date: '2024-07'
+  module: Integrated Grid Planning (IGP)
+  type: additions
+  breaking: false
+  highlights:
+  - Added network editor and network versioning feature
+  - Added forecast comparison feature
+  - Capacity analysis can now be run against modified forecasts
+  - Export of Synergi load files
+  - Patch API improvements
+- date: '2024-07'
+  module: Platform
+  type: maintenance
+  breaking: false
+  highlights:
+  - Security updates
+- date: '2024-03'
+  module: Production Cost Modeling (PCM)
+  type: additions
+  breaking: false
+  highlights:
+  - Added market forecasts and production cost model
+- date: '2024-01'
+  module: Integrated Grid Planning (IGP)
+  type: additions
+  breaking: false
+  highlights:
+  - Improved search and filter capabilities
+  - Added ability to edit queued resources in a scenario model
+  - Improved baselines
+  - Various improvements to performance and user experience
+  - Minor bug fixes
+- date: '2023-12'
+  module: Integrated Grid Planning (IGP)
+  type: initial-release
+  breaking: false
+  highlights:
+  - 'Initial version: layered studies, load and DG scenarios, interconnection queues, network scenarios, study management'
+  - User experience improvements for adoption propensity results and study management
+  - Improved responsiveness in load and DG scenarios feature

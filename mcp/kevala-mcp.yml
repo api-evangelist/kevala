@@ -1,0 +1,29 @@
+generated: '2026-08-23'
+method: searched
+source: >-
+  web search for a Kevala MCP server + probes of mcp.kevala.com, api.kevala.com/mcp,
+  github.com/KevalaAnalytics, npm and PyPI (2026-08-23)
+status: none
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: searched
+tools: []
+notes: >-
+  Kevala publishes no Model Context Protocol server — no hosted endpoint, no stdio package, and no
+  mention of MCP or agents anywhere on its site or in its single public GitHub repository. No
+  candidate tool list is derived either: deriving one requires an OpenAPI to bind tools to, and
+  Kevala's only OpenAPI (https://api.kevala.com/der/openapi/) is credential-gated (HTTP 403), so
+  there are no verified operations to project. NO MCPServer pointer is emitted.
+probed:
+- url: https://mcp.kevala.com/
+  status: 000
+  note: DNS does not resolve.
+- url: https://api.kevala.com/mcp
+  status: 404
+- url: https://api.kevala.com/der/openapi/
+  status: 403
+  note: The spec that would seed a candidate tool list is gated.

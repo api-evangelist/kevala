@@ -1,0 +1,41 @@
+generated: '2026-08-23'
+method: probed
+source: >-
+  anonymous responses observed from https://api.kevala.com/der/ and https://api.kevala.com/der/openapi/
+  on 2026-08-23
+format: drf-detail
+format_note: >-
+  NOT RFC 9457. The API returns application/json with a Django REST Framework `detail` envelope; no
+  application/problem+json media type, no `type`/`title`/`status`/`instance` members, and no error
+  code registry is published. Content negotiation is honored: the same error rendered as YAML for an
+  OpenAPI media-type request carries an additional machine `code` member (`not_authenticated`).
+envelope:
+  media_type: application/json
+  fields:
+  - name: detail
+    type: string
+    description: Human-readable message. The only field present in the JSON rendering.
+  - name: code
+    type: string
+    description: >-
+      Machine-readable DRF error code. Observed in the YAML rendering of the same 403
+      (`code: not_authenticated`) but absent from the JSON rendering, so an agent cannot rely on it.
+problem_types:
+- id: not_authenticated
+  http_status: 403
+  detail: Authentication credentials were not provided.
+  observed_at: https://api.kevala.com/der/
+  meaning: No bearer token was presented. All Kevala platform API paths require an Auth0-issued token.
+  remediation: >-
+    Obtain an access token for the audience https://api.kevala.com from the Kevala Auth0 tenant and
+    resend with an Authorization header. Note that no WWW-Authenticate challenge is returned.
+- id: not_found
+  http_status: 404
+  detail: Not found.
+  observed_at: https://api.kevala.com/der/?format=openapi
+  meaning: Path or requested representation does not exist on the DER service.
+  remediation: Verify the path against the authenticated reference at https://api.kevala.com/der/redoc/.
+gaps:
+- No public error-code reference or status-code table.
+- No RFC 9457 problem+json, no `type` URIs, no correlation/request id header observed on errors.
+- 4xx/5xx catalogue for authenticated operations is unknown; the OpenAPI that would carry it is gated.

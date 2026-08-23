@@ -1,0 +1,108 @@
+generated: '2026-08-23'
+method: searched
+source: >-
+  https://www.kevala.com/platform (SOC 2 statement) +
+  https://kevalaanalytics.auth0.com/.well-known/openid-configuration (HTTP 200) +
+  live probes of https://api.kevala.com/der/ (2026-08-23)
+standards:
+- id: oauth2
+  conforms: true
+  evidence: >-
+    The platform authenticates through the company's Auth0 tenant using OAuth 2.0 authorization
+    code flow with audience https://api.kevala.com (observed on the app.kevala.com login redirect).
+- id: oauth2-pkce
+  conforms: true
+  evidence: 'Tenant discovery advertises code_challenge_methods_supported: ["S256","plain"].'
+- id: oidc-discovery
+  conforms: true
+  evidence: >-
+    https://kevalaanalytics.auth0.com/.well-known/openid-configuration returns 200 with a complete
+    OIDC provider configuration (Auth0-hosted tenant).
+- id: oidc
+  conforms: true
+  evidence: >-
+    The platform requests the openid/profile/email scopes and the tenant exposes
+    authorization/token/userinfo/jwks/revocation endpoints.
+- id: rfc8414-authorization-server-metadata
+  conforms: true
+  evidence: >-
+    https://kevalaanalytics.auth0.com/.well-known/oauth-authorization-server returns 200. Note this
+    is served by Auth0, not by a kevala.com host.
+- id: rfc9728-protected-resource-metadata
+  conforms: false
+  evidence: >-
+    https://api.kevala.com/.well-known/oauth-protected-resource returns 404; the API returns no
+    WWW-Authenticate challenge, so the authorization server is not discoverable from the resource.
+- id: openapi
+  conforms: partial
+  evidence: >-
+    https://api.kevala.com/der/openapi/ exists and serves Content-Type
+    application/vnd.oai.openapi, so an OpenAPI document IS generated for the DER service — but it
+    returns HTTP 403 to anonymous callers, so its version and content could not be verified and no
+    spec is stored in this repo.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors are Django REST Framework `{"detail": ...}` JSON, not application/problem+json. See
+    errors/kevala-problem-types.yml.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on www.kevala.com and api.kevala.com.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No deprecation or sunset policy published; no Deprecation/Sunset headers observed.
+- id: llms-txt
+  conforms: false
+  evidence: https://www.kevala.com/llms.txt returns 404 (Webflow 404 page).
+- id: a2a-agent-card
+  conforms: false
+  evidence: >-
+    /.well-known/agent-card.json and /.well-known/agent.json return 404 on www.kevala.com and
+    api.kevala.com and 302 to Auth0 on app.kevala.com.
+- id: mcp
+  conforms: false
+  evidence: No hosted or local Model Context Protocol server published; see mcp/kevala-mcp.yml.
+- id: graphql
+  conforms: false
+  evidence: https://api.kevala.com/graphql returns 404 (nginx), no GraphQL surface found.
+- id: soc2
+  conforms: true
+  evidence: >-
+    "Kevala has obtained independent third-party auditor certifications with the AICPA's SOC for
+    Service Organizations, SOC 2 Type I" — stated on https://www.kevala.com/platform (HTTP 200,
+    read 2026-08-23). Type I only; no Type II claim, no report request process, and no trust center
+    or compliance page is published.
+- id: hsts
+  conforms: true
+  evidence: >-
+    Both www.kevala.com and api.kevala.com return
+    strict-transport-security max-age=31536000; includeSubDomains; preload.
+- id: dnssec
+  conforms: false
+  evidence: 'kevala.com publishes no DNSKEY records; see security/kevala-domain-security.yml.'
+- id: dmarc
+  conforms: partial
+  evidence: 'DMARC record present with p=none (monitor only); SPF present; no CAA records.'
+domain_standards:
+  market: electric grid / distributed energy resources analytics
+  candidates_checked:
+  - id: green-button-espi
+    claimed: false
+    evidence: >-
+      No mention of Green Button / ESPI anywhere on kevala.com (site search of all 92 sitemap URLs
+      plus targeted web search, 2026-08-23).
+  - id: ieee-2030.5
+    claimed: false
+    evidence: No IEEE 2030.5 / SEP2 claim found on the public site.
+  - id: openadr
+    claimed: false
+    evidence: No OpenADR claim found on the public site.
+  - id: iec-61968-cim
+    claimed: false
+    evidence: No CIM / IEC 61968-61970 claim found on the public site.
+  note: >-
+    Kevala's published interoperability claims are to power-system MODELING TOOL formats — CYME,
+    Synergi, PSS/E and OpenDSS export compatibility, stated on https://www.kevala.com/platform —
+    rather than to an API-level domain standard. Those are file-exchange formats produced by the
+    platform, not a contract signature, so no domain_standard_conformance is asserted. REWARD-ONLY
+    dimension: recorded as unclaimed, not as a failure.

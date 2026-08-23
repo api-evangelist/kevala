@@ -1,0 +1,27 @@
+generated: '2026-08-23'
+method: searched
+source: >-
+  https://www.kevala.com/pricing (404), https://www.kevala.com/template/pricing (404),
+  https://www.kevala.com/demo (200), https://www.kevala.com/contact-us (200),
+  https://www.kevala.com/terms-of-service (200)
+provider: Kevala
+providerId: kevala
+plan_count: 0
+plans: []
+model: enterprise-contract
+description: >-
+  Kevala publishes no pricing. There is no pricing page in the sitemap (both /pricing and
+  /template/pricing return 404), no self-serve checkout, and no published tiers, quotas or overage
+  rates. Commercial terms are set per customer: the Terms of Service define subscription fees "set
+  forth in the Order Form" (Section 4.1) and a separate data-download license granted only "in the
+  event that your Order Form allows you to download data" (Section 2.2). The published route to
+  access is "Schedule a demo" / "Contact us".
+sales_gate:
+  demo_request: https://www.kevala.com/demo
+  contact: https://www.kevala.com/contact-us
+  self_serve: false
+  free_tier: false
+  trial: not published
+note_on_method: >-
+  method is `searched`, not `probed` — this is an absence established by reading the provider's own
+  pages and terms, not by parsing a machine-readable catalog. An honest zero.

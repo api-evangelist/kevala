@@ -64,5 +64,31 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Kevala is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.hiive.com/securities/kevala-stock
+Kevala Inc. is a San Francisco based grid intelligence company, founded in 2014, whose cloud platform
+turns utility network models, address-level geospatial data and hyper-granular time-series into
+electric-grid analytics for utilities, regulators and government, renewable energy developers, and
+transportation electrification planners. Kevala licenses its data and analysis by subscription and by
+API, and its platform covers integrated grid planning, DER adoption forecasting, project siting, power
+flow analysis, locational carbon accounting, production cost modeling and predictive interconnection
+siting metrics, with exports compatible with CYME, Synergi, PSS/E and OpenDSS.
+
+- Website: https://www.kevala.com
+- Platform: https://www.kevala.com/platform
+- Application (login): https://app.kevala.com/
+- Release notes: https://www.kevala.com/release-notes
+
+## API surface
+
+Kevala runs an authenticated platform API at `https://api.kevala.com/`. The DER metering service is
+mounted at `https://api.kevala.com/der/` (Django REST Framework) and **does generate a machine-readable
+contract** — an OpenAPI document at `/der/openapi/` (`Content-Type: application/vnd.oai.openapi`) and a
+ReDoc reference at `/der/redoc/` — but both return `HTTP 403 {"detail":"Authentication credentials were
+not provided."}` to anonymous callers. Tokens are issued by Kevala's Auth0 tenant
+(`https://kevalaanalytics.auth0.com/`) for the audience `https://api.kevala.com`.
+
+There is no public developer portal, API reference, specification, SDK, MCP server, agent card,
+status page, published rate limit or published pricing. This profile therefore documents the contract
+that exists and the wall in front of it, rather than the contract itself — see `apis.yml`
+(`x-coverage`) and the artifacts in `authentication/`, `conventions/`, `errors/`, `conformance/`,
+`lifecycle/`, `changelog/`, `well-known/`, `security/`, `plans/`, `rate-limits/`, `packages/`,
+`mcp/` and `llms/`.

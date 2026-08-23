@@ -1,0 +1,65 @@
+generated: '2026-08-23'
+method: probed
+source: >-
+  https://app.kevala.com/ authorize redirect (observed 2026-08-23) +
+  https://kevalaanalytics.auth0.com/.well-known/openid-configuration (HTTP 200) +
+  anonymous probes of https://api.kevala.com/der/ (HTTP 403)
+docs: null
+docs_note: >-
+  Kevala publishes no public authentication page or developer reference. Everything below was
+  observed directly from the login redirect, the Auth0 tenant discovery document, and the API's own
+  anonymous responses. No credential values are recorded.
+summary:
+  types: [oauth2, openIdConnect]
+  api_key_in: []
+  oauth2_flows: [authorizationCode]
+  identity_provider: Auth0 (tenant kevalaanalytics.auth0.com)
+  api_audience: https://api.kevala.com
+schemes:
+- name: oauth2
+  type: oauth2
+  description: >-
+    The Kevala platform application at app.kevala.com redirects unauthenticated visitors to
+    https://kevalaanalytics.auth0.com/authorize with response_type=code,
+    audience=https://api.kevala.com and scope "openid profile email offline_access", i.e. the
+    platform obtains an Auth0-issued access token for the api.kevala.com audience and calls the API
+    with it. No client credentials, device or machine-to-machine flow is documented publicly.
+  flows:
+  - flow: authorizationCode
+    authorization_server: https://kevalaanalytics.auth0.com/
+    authorization_endpoint: https://kevalaanalytics.auth0.com/authorize
+    token_endpoint: https://kevalaanalytics.auth0.com/oauth/token
+    userinfo_endpoint: https://kevalaanalytics.auth0.com/userinfo
+    jwks_uri: https://kevalaanalytics.auth0.com/.well-known/jwks.json
+    revocation_endpoint: https://kevalaanalytics.auth0.com/oauth/revoke
+    device_authorization_endpoint: https://kevalaanalytics.auth0.com/oauth/device/code
+    registration_endpoint: https://kevalaanalytics.auth0.com/oidc/register
+    pkce: S256
+    grant_types_observed: [authorization_code, refresh_token]
+    scopes_requested_by_platform: [openid, profile, email, offline_access]
+    audience: https://api.kevala.com
+    sources: [well-known/kevala-auth0-openid-configuration.json]
+- name: openIdConnect
+  type: openIdConnect
+  openIdConnectUrl: https://kevalaanalytics.auth0.com/.well-known/openid-configuration
+  description: >-
+    OIDC discovery is live on the company's Auth0 tenant (HTTP 200) and advertises S256 PKCE,
+    private_key_jwt / client_secret_basic / client_secret_post / none client authentication, and
+    the standard OIDC scope set. This is Auth0-provided infrastructure configured by Kevala, not a
+    document served from a kevala.com host.
+observed_behaviour:
+- url: https://api.kevala.com/der/
+  status: 403
+  body: '{"detail":"Authentication credentials were not provided."}'
+  note: Django REST Framework rejection; no WWW-Authenticate challenge header is returned.
+- url: https://api.kevala.com/der/openapi/
+  status: 403
+  content_type: application/vnd.oai.openapi
+  note: >-
+    The OpenAPI document itself is credential-gated. The endpoint exists and negotiates the OpenAPI
+    media type, but anonymous callers receive the DRF not_authenticated envelope.
+gaps:
+- No public developer signup or key-issuance path; access follows a subscription/Order Form.
+- No documented service-to-service (client credentials) flow, token lifetime, or refresh guidance.
+- No WWW-Authenticate header on 401/403, so an agent cannot discover the authorization server from
+  the API response alone.
