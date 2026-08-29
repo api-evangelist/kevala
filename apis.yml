@@ -13,6 +13,17 @@ description: >-
   OpenAPI document and a ReDoc reference, but both require platform credentials and no public
   developer portal, API reference or machine-readable specification is served anonymously.
 url: https://raw.githubusercontent.com/api-evangelist/kevala/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://cdn.prod.website-files.com/62a236e9692c48e1d16898b3/6359863c0193ad9598083d1c_kevala-logo-copy.png
 x-type: company
 x-source: harvest:secondary-market
