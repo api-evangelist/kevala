@@ -64,31 +64,107 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Kevala Inc. is a San Francisco based grid intelligence company, founded in 2014, whose cloud platform
-turns utility network models, address-level geospatial data and hyper-granular time-series into
-electric-grid analytics for utilities, regulators and government, renewable energy developers, and
-transportation electrification planners. Kevala licenses its data and analysis by subscription and by
-API, and its platform covers integrated grid planning, DER adoption forecasting, project siting, power
-flow analysis, locational carbon accounting, production cost modeling and predictive interconnection
-siting metrics, with exports compatible with CYME, Synergi, PSS/E and OpenDSS.
+Kevala Inc. is a San Francisco based grid intelligence company, founded in 2014, that builds a cloud-based electric-grid data and analytics platform for utilities, regulators and government agencies, renewable energy developers, and transportation electrification planners. The platform merges address-specific geospatial data, utility network models and hyper-granular time-series data into map-based analytics for integrated grid planning, distributed energy resource (DER) adoption forecasting, project siting, power flow analysis, locational carbon accounting, production cost modeling, and predictive interconnection siting metrics, with exports compatible with CYME, Synergi, PSS/E and OpenDSS. Kevala licenses its data and analysis by subscription and operates an authenticated platform API at api.kevala.com; the DER metering surface publishes an OpenAPI document and a ReDoc reference, but both require platform credentials and no public developer portal, API reference or machine-readable specification is served anonymously.
 
-- Website: https://www.kevala.com
-- Platform: https://www.kevala.com/platform
-- Application (login): https://app.kevala.com/
-- Release notes: https://www.kevala.com/release-notes
+**Areas:** Company · Energy · Electricity · Electric Grid · Grid Analytics · Distributed Energy Resources · Utilities · Geospatial · Analytics · Carbon Accounting · Electric Vehicles · Sustainability
 
-## API surface
+## Kevala on APIs.io
 
-Kevala runs an authenticated platform API at `https://api.kevala.com/`. The DER metering service is
-mounted at `https://api.kevala.com/der/` (Django REST Framework) and **does generate a machine-readable
-contract** — an OpenAPI document at `/der/openapi/` (`Content-Type: application/vnd.oai.openapi`) and a
-ReDoc reference at `/der/redoc/` — but both return `HTTP 403 {"detail":"Authentication credentials were
-not provided."}` to anonymous callers. Tokens are issued by Kevala's Auth0 tenant
-(`https://kevalaanalytics.auth0.com/`) for the audience `https://api.kevala.com`.
+Everything profiled for Kevala is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/kevala/](https://apis.io/providers/kevala/)** — or go straight to one of the APIs or properties below.
 
-There is no public developer portal, API reference, specification, SDK, MCP server, agent card,
-status page, published rate limit or published pricing. This profile therefore documents the contract
-that exists and the wall in front of it, rather than the contract itself — see `apis.yml`
-(`x-coverage`) and the artifacts in `authentication/`, `conventions/`, `errors/`, `conformance/`,
-`lifecycle/`, `changelog/`, `well-known/`, `security/`, `plans/`, `rate-limits/`, `packages/`,
-`mcp/` and `llms/`.
+### APIs (1)
+
+- [Kevala Platform API — DER Metering](https://apis.io/apis/kevala/kevala-platform-api-der-metering/) — Authenticated REST surface of the Kevala platform, mounted at https://api.kevala.com/der/ and implemented with Django REST Framework. Kevala's September…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Kevala Authentication](https://apis.io/security/kevala/kevala-authentication/)
+- [Kevala Domain Security](https://apis.io/security/kevala/kevala-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Kevala Scopes](https://apis.io/scopes/kevala/kevala-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Kevala Plans Pricing](https://apis.io/plans/kevala/kevala-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Kevala Rate Limits](https://apis.io/rate-limits/kevala/kevala-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.kevala.com)
+- [Sign up](https://www.kevala.com/sign-up)
+- [Blog](https://www.kevala.com/resources)
+- [Terms of service](https://www.kevala.com/terms-of-service)
+- [Privacy policy](https://www.kevala.com/privacy-policy)
+- [GitHub](https://github.com/KevalaAnalytics)
+
+## API Evangelist rating
+
+**Kin Score 27.0** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 18.4 |
+| Developer ergonomics | 14.3 |
+| Access clarity | 42.1 |
+
+**Agent readiness 20.5** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+
+**Regulatory alignment 38.5** — Energy & Utilities
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/kevala/](https://apis.io/providers/kevala/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Kevala: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/kevala/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
